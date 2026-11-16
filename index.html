@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOLTEX 2.0 - Electrical Calculation System</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <a href="#" class="brand" onclick="showPage('dashboard')">
+            <span class="brand-icon">V</span>
+            <span>
+                <strong>VOLTEX</strong>
+                <small>ENGINEERING TOOLKIT</small>
+            </span>
+        </a>
+
+        <p class="menu-label">MENU UTAMA</p>
+
+        <button class="nav-link active" data-page="dashboard">
+            <span>⌂</span> Dashboard
+        </button>
+
+        <button class="nav-link" data-page="calculation">
+            <span>ϟ</span> Perhitungan Kelistrikan
+        </button>
+
+        <button class="nav-link" data-page="tools">
+            <span>⌘</span> Electrical Tools
+        </button>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-note">
+                <strong>Electrical made simpler.</strong>
+                <p>Alat bantu perhitungan untuk pembelajaran teknik elektro.</p>
+            </div>
+            <small>VOLTEX 2.0 • WEB EDITION</small>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <button id="menuToggle" class="mobile-menu">☰</button>
+            <div class="breadcrumb">
+                Workspace / <strong id="breadcrumb">Dashboard</strong>
+            </div>
+            <div class="status">
+                <span></span> Calculation tools ready
+            </div>
+        </header>
+
+        <div class="content">
+
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="page active">
+                <div class="eyebrow">ELECTRICAL ENGINEERING TOOLKIT</div>
+                <h1>Welcome to <span>VOLTEX 2.0</span></h1>
+                <p class="subtitle">
+                    Satu ruang kerja untuk membantu perhitungan dasar teknik elektro.
+                </p>
+
+                <div class="hero">
+                    <div class="hero-text">
+                        <small>YOUR ELECTRICAL WORKSPACE</small>
+                        <h2>Understand the numbers.<br>
+                            <span>Power your ideas.</span>
+                        </h2>
+                        <p>
+                            Gunakan berbagai alat perhitungan listrik
+                            dalam satu platform pembelajaran.
+                        </p>
+                        <button class="primary-btn" onclick="showPage('calculation')">
+                            Mulai Menghitung →
+                        </button>
+                    </div>
+                    <div class="hero-symbol">V<small>2.0</small></div>
+                </div>
+
+                <div class="section-heading">
+                    <div>
+                        <small>TOOLS & CALCULATORS</small>
+                        <h2>Pilih kategori perhitungan</h2>
+                    </div>
+                </div>
+
+                <div class="tool-grid">
+                    <button class="tool-card" onclick="showPage('calculation')">
+                        <div class="tool-icon blue">⎓</div>
+                        <small>01 / CALCULATION</small>
+                        <h3>Perhitungan Kelistrikan</h3>
+                        <p>DC, AC, rangkaian, 3 fasa, dan Smart Formula.</p>
+                        <strong>Buka menu →</strong>
+                    </button>
+
+                    <button class="tool-card" onclick="showPage('tools')">
+                        <div class="tool-icon cyan">⌘</div>
+                        <small>02 / ELECTRICAL TOOLS</small>
+                        <h3>Electrical Tools</h3>
+                        <p>Step-by-Step dan konversi satuan listrik.</p>
+                        <strong>Buka menu →</strong>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PERHITUNGAN KELISTRIKAN -->
+            <section id="calculation" class="page">
+                <div class="eyebrow">VOLTEX / CALCULATION</div>
+                <h1>Perhitungan <span>Kelistrikan</span></h1>
+                <p class="subtitle">
+                    Pilih jenis kalkulator yang ingin digunakan.
+                </p>
+
+                <div class="feature-grid">
+                    <button class="feature-card" onclick="openCalculator('dc')">
+                        <span>⎓</span>
+                        <strong>Kalkulator DC</strong>
+                        <small>Tegangan, arus, hambatan, daya, energi</small>
+                    </button>
+
+                    <button class="feature-card" onclick="openCalculator('ac')">
+                        <span>∿</span>
+                        <strong>Kalkulator AC</strong>
+                        <small>Periode, impedansi, dan daya AC</small>
+                    </button>
+
+                    <button class="feature-card" onclick="openCalculator('circuit')">
+                        <span>⌁</span>
+                        <strong>Kalkulator Rangkaian</strong>
+                        <small>Seri, paralel, dan campuran</small>
+                    </button>
+
+                    <button class="feature-card" onclick="openCalculator('phase')">
+                        <span>ϟ</span>
+                        <strong>Kalkulator 3 Fasa</strong>
+                        <small>Daya dan arus tiga fasa</small>
+                    </button>
+
+                    <button class="feature-card" onclick="openCalculator('smart')">
+                        <span>∑</span>
+                        <strong>Smart Formula</strong>
+                        <small>Mencari variabel listrik secara otomatis</small>
+                    </button>
+                </div>
+
+                <div id="calculatorArea"></div>
+            </section>
+
+            <!-- ELECTRICAL TOOLS -->
+            <section id="tools" class="page">
+                <div class="eyebrow">VOLTEX / ELECTRICAL TOOLS</div>
+                <h1>Electrical <span>Tools</span></h1>
+                <p class="subtitle">
+                    Alat bantu untuk memahami dan mengonversi besaran listrik.
+                </p>
+
+                <div class="feature-grid">
+                    <button class="feature-card" onclick="openCalculator('steps')">
+                        <span>≡</span>
+                        <strong>Step-by-Step</strong>
+                        <small>Melihat tahapan perhitungan terakhir</small>
+                    </button>
+
+                    <button class="feature-card" onclick="openCalculator('converter')">
+                        <span>⇄</span>
+                        <strong>Unit Converter</strong>
+                        <small>Konversi satuan besaran listrik</small>
+                    </button>
+                </div>
+
+                <div id="toolsArea"></div>
+            </section>
+
+        </div>
+    </main>
+</body>
+</html>
