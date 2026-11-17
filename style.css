@@ -1530,67 +1530,39 @@ button:focus-visible {
 }
 
 
-/* =====================================================
-   MOBILE BESAR
-   481px - 760px
-   ===================================================== */
+
+/* MOBILE BESAR: 481px - 760px */
 
 @media (min-width: 481px) and (max-width: 760px) {
 
-    .content {
-        padding: 25px 20px;
-    }
-
     .content::before {
-        height: 420px;
+        height: 550px;
 
-        background-size: 400px auto;
-        background-position: right -115px top 65px;
+        background-size: 550px auto;
+        background-position: center 90px;
 
-        opacity: 0.12;
+        opacity: 0.20;
     }
 
     .content::after {
         opacity: 0.15;
     }
 
-    .hero {
-        min-height: 300px;
-        padding: 28px 23px;
-    }
-
-    .hero-symbol {
-        position: absolute;
-
-        right: -10px;
-        bottom: -30px;
-
-        font-size: 120px;
-
-        opacity: 0.3;
-    }
-
 }
 
 
-/* =====================================================
-   MOBILE KECIL
-   480px KE BAWAH
-   ===================================================== */
+
+/* MOBILE KECIL: 480px KE BAWAH */
 
 @media (max-width: 480px) {
 
-    .content {
-        padding: 23px 15px;
-    }
-
     .content::before {
-        height: 380px;
+        height: 500px;
 
-        background-size: 290px auto;
-        background-position: right -105px top 65px;
+        background-size: 460px auto;
+        background-position: center 85px;
 
-        opacity: 0.09;
+        opacity: 0.17;
     }
 
     .content::after {
@@ -1608,12 +1580,9 @@ button:focus-visible {
 
     .hero-symbol {
         position: absolute;
-
         right: -15px;
         bottom: -25px;
-
         font-size: 105px;
-
         opacity: 0.25;
     }
 
