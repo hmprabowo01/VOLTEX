@@ -58,26 +58,31 @@
             <!-- DASHBOARD -->
             <section id="dashboard" class="page active">
                 <div class="eyebrow">ELECTRICAL ENGINEERING TOOLKIT</div>
-                <h1>Welcome to <span>VOLTEX 2.0</span></h1>
+                <h1>Welcome to <span>VOLTEX </span></h1>
                 <p class="subtitle">
-                    Satu ruang kerja untuk membantu perhitungan dasar teknik elektro.
+                   Satu platform terintegrasi untuk membantu perhitungan, analisis, dan pemahaman konsep dasar teknik elektro.
                 </p>
 
                 <div class="hero">
                     <div class="hero-text">
                         <small>YOUR ELECTRICAL WORKSPACE</small>
-                        <h2>Understand the numbers.<br>
-                            <span>Power your ideas.</span>
+                        <h2>Calculate with Precision,<br>
+                            <span>Understand with Confidence.</span>
                         </h2>
                         <p>
-                            Gunakan berbagai alat perhitungan listrik
-                            dalam satu platform pembelajaran.
+                            Permudah perhitungan listrik dan pahami konsep teknik elektro dalam satu platform.
                         </p>
                         <button class="primary-btn" onclick="showPage('calculation')">
                             Mulai Menghitung →
                         </button>
                     </div>
-                    <div class="hero-symbol">V<small>2.0</small></div>
+                    <div class="hero-symbol">
+                        <div class="lightning">⚡</div>
+                        <div class="spark spark-1"></div>
+                        <div class="spark spark-2"></div>
+                        <div class="spark spark-3"></div>
+                        <div class="spark spark-4"></div>
+                    </div>
                 </div>
 
                 <div class="section-heading">
@@ -114,39 +119,47 @@
                     Pilih jenis kalkulator yang ingin digunakan.
                 </p>
 
-                <div class="feature-grid">
-                    <button class="feature-card" onclick="openCalculator('dc')">
-                        <span>⎓</span>
-                        <strong>Kalkulator DC</strong>
-                        <small>Tegangan, arus, hambatan, daya, energi</small>
-                    </button>
+                
+<div class="feature-grid">
+    <button class="feature-card" onclick="openCalculator('dc')">
+        <span>⎓</span>
+        <strong>DC Circuit Calculator</strong>
+        <small>
+            Resistansi total, arus, tegangan, daya, dan energi
+            pada rangkaian seri, paralel, dan campuran.
+        </small>
+    </button>
 
-                    <button class="feature-card" onclick="openCalculator('ac')">
-                        <span>∿</span>
-                        <strong>Kalkulator AC</strong>
-                        <small>Periode, impedansi, dan daya AC</small>
-                    </button>
+    <button class="feature-card" onclick="openCalculator('ac')">
+        <span>∿</span>
+        <strong>Kalkulator Listrik AC</strong>
+        <small>
+            Periode, impedansi, daya aktif, daya semu,
+            dan daya reaktif.
+        </small>
+    </button>
 
-                    <button class="feature-card" onclick="openCalculator('circuit')">
-                        <span>⌁</span>
-                        <strong>Kalkulator Rangkaian</strong>
-                        <small>Seri, paralel, dan campuran</small>
-                    </button>
+    <button class="feature-card" onclick="openCalculator('phase')">
+        <span>ϟ</span>
+        <strong>Kalkulator 3 Fasa</strong>
+        <small>
+            Perhitungan arus, daya aktif, daya semu,
+            dan daya reaktif.
+        </small>
+    </button>
 
-                    <button class="feature-card" onclick="openCalculator('phase')">
-                        <span>ϟ</span>
-                        <strong>Kalkulator 3 Fasa</strong>
-                        <small>Daya dan arus tiga fasa</small>
-                    </button>
+    <button class="feature-card" onclick="openCalculator('smart')">
+        <span>∑</span>
+        <strong>Smart Formula</strong>
+        <small>
+            Menentukan tegangan, arus, hambatan,
+            dan daya secara otomatis.
+        </small>
+    </button>
+</div>
 
-                    <button class="feature-card" onclick="openCalculator('smart')">
-                        <span>∑</span>
-                        <strong>Smart Formula</strong>
-                        <small>Mencari variabel listrik secara otomatis</small>
-                    </button>
-                </div>
+<div id="calculatorArea"></div>
 
-                <div id="calculatorArea"></div>
             </section>
 
             <!-- ELECTRICAL TOOLS -->
