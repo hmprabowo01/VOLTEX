@@ -1,13 +1,57 @@
 
+
 :root {
-    --navy: #101d35;
-    --blue: #3568e8;
-    --cyan: #43c5d9;
-    --bg: #e5eaf0;
-    --text: #17243b;
-    --muted: #8290a4;
-    --border: #e7edf5;
+    /* ===== WARNA IDENTITAS UTAMA VOLTEX ===== */
+
+    --navy: #101820;
+    --navy-deep: #0B1118;
+    --navy-soft: #1C2733;
+    --slate: #303B49;
+
+    /* ===== WARNA AKSEN LOGO ===== */
+
+    --gold: #C5A572;
+    --gold-hover: #B18D59;
+    --gold-light: #E8D8B9;
+
+    --silver: #D9DDE2;
+    --silver-dark: #AEB6C0;
+
+    /* ===== WARNA BACKGROUND ===== */
+
+    --bg: #EAE7E0;
+    --surface: #F5F2EC;
+    --surface-soft: #E2DED6;
+    --surface-hover: #EDE8DE;
+
+    /* ===== WARNA TEKS ===== */
+
+    --text: #17212D;
+    --text-secondary: #586575;
+    --muted: #87919D;
+    --text-light: #F5F2EC;
+
+    /* ===== WARNA BORDER DAN GARIS ===== */
+
+    --border: #D8D3C9;
+    --border-dark: #35414D;
+
+    /* ===== WARNA KOMPATIBILITAS CSS LAMA ===== */
+
+    --blue: var(--gold);
+    --cyan: var(--silver);
+
+    /* ===== WARNA STATUS ===== */
+
+    --success: #39866A;
+    --warning: #C18A43;
+    --danger: #B95C58;
+
+    /* ===== BAYANGAN ===== */
+
+    --shadow: 0 8px 24px rgba(16, 24, 32, 0.07);
 }
+
 
 * {
     box-sizing: border-box;
@@ -35,11 +79,15 @@ button {
     position: fixed;
     left: 0;
     top: 0;
+
     background: var(--navy);
-    color: white;
+    color: var(--text-light);
+
     padding: 28px 20px;
     display: flex;
     flex-direction: column;
+
+    border-right: 1px solid var(--border-dark);
     z-index: 10;
 }
 
@@ -47,37 +95,36 @@ button {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: white;
+    color: var(--text-light);
     text-decoration: none;
     margin-bottom: 45px;
 }
 
-.brand-icon {
-    width: 42px;
-    height: 42px;
-    display: grid;
-    place-items: center;
-    border-radius: 11px;
-    background: linear-gradient(135deg, #4b8bff, #35c4d6);
-    font-size: 25px;
-    font-weight: bold;
+.brand-logo {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 5px rgba(197, 165, 114, 0.25));
 }
 
 .brand strong {
     display: block;
     font-size: 20px;
     letter-spacing: 2px;
+    color: #F5F2EC;
 }
 
 .brand small {
-    color: #8392ac;
+    color: var(--gold);
     font-size: 8px;
     letter-spacing: 1px;
 }
 
 .menu-label {
     font-size: 10px;
-    color: #8392ac;
+    color: #89939F;
     margin: 0 0 15px 10px;
     letter-spacing: 1.5px;
 }
@@ -85,7 +132,7 @@ button {
 .nav-link {
     border: none;
     background: transparent;
-    color: #aab6ca;
+    color: #B7C0CA;
     padding: 14px;
     text-align: left;
     border-radius: 8px;
@@ -98,11 +145,10 @@ button {
     margin-right: 12px;
     font-size: 17px;
 }
-
 .nav-link:hover,
 .nav-link.active {
-    background: var(--blue);
-    color: white;
+    background: #26313D;
+    color: var(--gold);
 }
 
 .sidebar-bottom {
@@ -111,25 +157,27 @@ button {
 
 .sidebar-note {
     padding: 16px;
-    background: #ffffff0d;
-    border: 1px solid #ffffff18;
+    background: #1C2733;
+    border: 1px solid #35414D;
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
 .sidebar-note strong {
     font-size: 12px;
+    color: #F5F2EC;
 }
 
 .sidebar-note p {
-    color: #9ba9be;
+    color: #AEB6C0;
     font-size: 10px;
     line-height: 1.6;
     margin-top: 8px;
 }
 
+
 .sidebar-bottom > small {
-    color: #7888a1;
+    color: #89939F;
     font-size: 9px;
     letter-spacing: 1px;
 }
@@ -141,8 +189,9 @@ button {
 
 .topbar {
     height: 68px;
-    background: rgb(240, 241, 243);
+    background: #F5F2EC;
     border-bottom: 1px solid var(--border);
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -151,7 +200,7 @@ button {
 
 .breadcrumb {
     font-size: 12px;
-    color: #9aa5b7;
+    color: #87919D;
 }
 
 .breadcrumb strong {
@@ -159,13 +208,13 @@ button {
 }
 
 .status {
-    color: #8290a4;
+    color: #7C8794;
     font-size: 11px;
 }
 
 .status span {
     display: inline-block;
-    background: #32bd8c;
+    background: var(--success);
     width: 7px;
     height: 7px;
     border-radius: 50%;
@@ -176,6 +225,7 @@ button {
     display: none;
     border: 0;
     background: none;
+    color: #17212D;
     font-size: 22px;
 }
 
@@ -202,7 +252,7 @@ button {
 .eyebrow {
     font-size: 10px;
     letter-spacing: 1.5px;
-    color: #8997aa;
+    color: #A9864F;
     font-weight: bold;
     margin-bottom: 12px;
 }
@@ -210,37 +260,49 @@ button {
 h1 {
     font-size: 34px;
     margin-bottom: 9px;
+    color: #17212D;
 }
 
 h1 span {
-    color: var(--blue);
+    color: #A9864F;
 }
 
 .subtitle {
-    color: var(--muted);
+    color: #7C8794;
     font-size: 13px;
     margin-bottom: 28px;
     line-height: 1.6;
 }
 
 .hero {
-    background: linear-gradient(110deg, #a9b6ce, #1d5180);
+    background: linear-gradient(
+        115deg,
+        #101820 0%,
+        #1C2733 60%,
+        #303B49 100%
+    );
+
     min-height: 270px;
     border-radius: 15px;
     padding: 40px;
-    color: white;
+    color: #F5F2EC;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 15px 40px 10px rgba(115, 166, 224, 0.8) !important;
-    transition: all 2s ease;
+
+    border: 1px solid #35414D;
+    box-shadow: 0 12px 30px rgba(16, 24, 32, 0.16);
+    transition: all .3s ease;
 }
+
 .hero:hover {
-    box-shadow: 0 15px 40px 5px rgba(7, 134, 245, 0.3);
-    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(16, 24, 32, 0.22);
+    transform: translateY(-4px);
 }
+
 
 .hero-text {
     position: relative;
@@ -249,7 +311,7 @@ h1 span {
 }
 
 .hero-text > small {
-    color: #73d4e3;
+    color: #C5A572;
     font-size: 10px;
     letter-spacing: 1.5px;
 }
@@ -258,15 +320,16 @@ h1 span {
     font-size: 32px;
     line-height: 1.25;
     margin: 15px 0;
+    color: #F5F2EC;
 }
 
 .hero h2 span {
-    color: #6dd4e1;
+    color: #C5A572;
 }
 
 .hero p {
     font-size: 12px;
-    color: #b7c7de;
+    color: #C1C8D0;
     line-height: 1.7;
     margin-bottom: 20px;
 }
@@ -278,17 +341,21 @@ h1 span {
     align-items: center;
     justify-content: center;
     right: 12%;
-    color: #497983;
-    opacity: 0.8;
+
+    color: #C5A572;
+    opacity: 0.22;
+
     font-size: 190px;
     font-weight: bold;
 }
+
 .lightning {
     position: relative;
     z-index: 2;
-    filter: drop-shadow(0 0 3px #ffffff)
-            drop-shadow(0 0 7px #43c5d9)
-            drop-shadow(0 0 12px #43c5d9);
+
+    filter:
+        drop-shadow(0 0 3px rgba(197, 165, 114, 0.5))
+        drop-shadow(0 0 8px rgba(197, 165, 114, 0.3));
 }
 
 
@@ -302,9 +369,9 @@ h1 span {
 
     background: linear-gradient(
         180deg,
-        hsl(44, 100%, 51%) 0%,
-        #fe8c00 45%,
-        #ff3516 100%
+        #F5E5C5 0%,
+        #C5A572 50%,
+        #987344 100%
     );
 
     clip-path: polygon(
@@ -318,9 +385,8 @@ h1 span {
     );
 
     filter:
-        drop-shadow(0 0 4px #ffffff)
-        drop-shadow(0 0 8px #43c5d9)
-        drop-shadow(0 0 15px #168cff);
+        drop-shadow(0 0 4px rgba(245, 229, 197, 0.6))
+        drop-shadow(0 0 9px rgba(197, 165, 114, 0.5));
 
     opacity: 0;
     z-index: 5;
@@ -387,17 +453,20 @@ h1 span {
 
 .primary-btn {
     border: none;
-    background: var(--blue);
-    color: white;
+    background: #C5A572;
+    color: #101820;
+
     padding: 13px 18px;
     border-radius: 7px;
     font-size: 12px;
     font-weight: bold;
+
     transition: .2s;
 }
 
 .primary-btn:hover {
-    background: #2454ce;
+    background: #B18D59;
+    color: #101820;
     transform: translateY(-2px);
 }
 
@@ -407,13 +476,14 @@ h1 span {
 
 .section-heading small {
     font-size: 9px;
-    color: #8997aa;
+    color: #A9864F;
     letter-spacing: 1.5px;
 }
 
 .section-heading h2 {
     font-size: 21px;
     margin-top: 7px;
+    color: #17212D;
 }
 
 .tool-grid {
@@ -423,7 +493,7 @@ h1 span {
 }
 
 .tool-card {
-    background: white;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
     text-align: left;
@@ -434,8 +504,8 @@ h1 span {
 .tool-card:hover,
 .feature-card:hover {
     transform: translateY(-4px);
-    border-color: #b9cafa;
-    box-shadow: 0 10px 25px #233d6110;
+    border-color: var(--gold);
+    box-shadow: var(--shadow);
 }
 
 .tool-icon {
@@ -449,37 +519,38 @@ h1 span {
 }
 
 .blue {
-    color: var(--blue);
-    background: #edf2ff;
+    color: #A9864F;
+    background: #EDE3D2;
 }
 
 .cyan {
-    color: #14a7b8;
-    background: #e6f9fa;
+    color: #65717E;
+    background: #E1E3E5;
 }
 
 .tool-card > small {
     display: block;
     font-size: 9px;
-    color: #9aa7b8;
+    color: #A9864F;
     margin-bottom: 8px;
 }
 
 .tool-card h3 {
     font-size: 16px;
     margin-bottom: 9px;
+    color: #17212D;
 }
 
 .tool-card p {
     font-size: 11px;
-    color: var(--muted);
+    color: #7C8794;
     line-height: 1.6;
     margin-bottom: 15px;
 }
 
 .tool-card > strong {
     font-size: 11px;
-    color: var(--blue);
+    color: #A9864F;
 }
 
 .feature-grid {
@@ -491,7 +562,7 @@ h1 span {
 
 .feature-card {
     border: 1px solid var(--border);
-    background: white;
+    background: var(--surface);
     border-radius: 11px;
     padding: 20px;
     text-align: left;
@@ -499,42 +570,43 @@ h1 span {
     flex-direction: column;
     gap: 9px;
     transition: .2s;
-    
 }
 
 .feature-card > span {
     font-size: 27px;
-    color: var(--blue);
+    color: #A9864F;
 }
 
 .feature-card strong {
     font-size: 13px;
+    color: #17212D;
 }
 
 .feature-card small {
     font-size: 10px;
-    color: var(--muted);
+    color: #7C8794;
     line-height: 1.6;
 }
 
 /* CALCULATOR */
 
 .calculator {
-    background: white;
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 13px;
     padding: 25px;
     margin-top: 20px;
-    box-shadow: 0 5px 20px #1e3a5e08;
+    box-shadow: var(--shadow);
 }
 
 .calculator h2 {
     font-size: 20px;
     margin-bottom: 8px;
+    color: #17212D;
 }
 
 .calculator > p {
-    color: var(--muted);
+    color: #7C8794;
     font-size: 11px;
     margin-bottom: 22px;
 }
@@ -554,24 +626,25 @@ h1 span {
 .field label {
     font-size: 11px;
     font-weight: 600;
-    color: #58677e;
+    color: #586575;
 }
 
 .field input,
 .field select {
     width: 100%;
-    border: 1px solid #e3e9f1;
-    background: #fbfcfe;
+    border: 1px solid #D8D3C9;
+    background: #F5F2EC;
     border-radius: 7px;
     padding: 12px;
     outline: none;
     font-size: 12px;
-    color: var(--text);
+    color: #17212D;
 }
 
 .field input:focus,
 .field select:focus {
-    border-color: var(--blue);
+    border-color: #C5A572;
+    box-shadow: 0 0 0 3px rgba(197, 165, 114, 0.13);
 }
 
 .calc-actions {
@@ -579,7 +652,8 @@ h1 span {
 }
 
 .calc-result {
-    background: #f3f6fd;
+    background: #EAE5DA;
+    border: 1px solid #D8D0C1;
     border-radius: 9px;
     padding: 18px;
     margin-top: 20px;
@@ -589,7 +663,7 @@ h1 span {
 }
 
 .calc-result h3 {
-    color: var(--blue);
+    color: #A9864F;
     margin-bottom: 8px;
     font-size: 15px;
 }
@@ -600,7 +674,7 @@ h1 span {
 
 .calc-result .step {
     padding: 6px 0;
-    border-bottom: 1px solid #e1e8f3;
+    border-bottom: 1px solid #D8D0C1;
 }
 
 .calc-result .step:last-child {
@@ -609,14 +683,14 @@ h1 span {
 
 .secondary-btn {
     background: transparent;
-    color: #8794a7;
+    color: #87919D;
     border: none;
     padding: 12px;
     font-size: 11px;
 }
 
 .secondary-btn:hover {
-    color: var(--blue);
+    color: #A9864F;
 }
 
 @media (max-width: 1050px) {
@@ -690,3 +764,911 @@ h1 span {
         padding: 18px;
     }
 }
+
+
+
+/* =====================================================
+   VOLTEX 2.0 — PREMIUM HYBRID ENGINEERING BRANDING
+   Theme: Hybrid / Large Watermark / Geometric
+   ===================================================== */
+
+
+/* =====================================================
+   1. COLOR SYSTEM
+   ===================================================== */
+
+:root {
+    /* Primary */
+    --navy: #111B25;
+    --navy-deep: #0C141D;
+    --navy-soft: #202E3C;
+    --slate: #344354;
+
+    /* Gold identity */
+    --gold: #B58B4D;
+    --gold-hover: #A47A40;
+    --gold-light: #D0B078;
+    --gold-pale: #E9D9BD;
+
+    /* Background */
+    --bg: #F0EDE5;
+    --surface: #F8F6F0;
+    --surface-soft: #E8E3D9;
+    --surface-hover: #F1EBDD;
+
+    /* Text */
+    --text: #172432;
+    --text-secondary: #667485;
+    --muted: #8993A0;
+    --text-light: #F8F6F0;
+
+    /* Borders */
+    --border: #DCD5C8;
+    --border-dark: #344252;
+
+    /* Compatibility */
+    --blue: var(--gold);
+    --cyan: #8295A8;
+
+    /* Status */
+    --success: #39866A;
+    --warning: #C18A43;
+    --danger: #B95C58;
+
+    /* Shadow */
+    --shadow:
+        0 8px 24px rgba(17, 27, 37, 0.07);
+
+    --shadow-hover:
+        0 14px 32px rgba(17, 27, 37, 0.12);
+}
+
+
+/* =====================================================
+   2. MAIN BACKGROUND
+   ===================================================== */
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.main-content {
+    background: var(--bg);
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   3. SIDEBAR BRANDING
+   ===================================================== */
+
+.sidebar {
+    background:
+        linear-gradient(
+            160deg,
+            #111B25 0%,
+            #0C141D 100%
+        );
+
+    border-right: 1px solid rgba(181, 139, 77, 0.22);
+}
+
+.brand {
+    gap: 13px;
+}
+
+.brand-logo {
+    width: 66px;
+    height: 66px;
+
+    filter:
+        drop-shadow(0 0 5px rgba(208, 176, 120, 0.35))
+        drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+
+    transition: transform .3s ease, filter .3s ease;
+}
+
+.brand:hover .brand-logo {
+    transform: scale(1.06);
+
+    filter:
+        drop-shadow(0 0 9px rgba(208, 176, 120, 0.55));
+}
+
+.brand strong {
+    color: #F8F6F0;
+    letter-spacing: 2.5px;
+}
+
+.brand small {
+    color: var(--gold-light);
+    letter-spacing: 1.3px;
+}
+
+.nav-link {
+    border-radius: 9px;
+    transition: .25s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.055);
+    color: var(--gold-light);
+}
+
+.nav-link.active {
+    background:
+        linear-gradient(
+            100deg,
+            rgba(181, 139, 77, 0.19),
+            rgba(181, 139, 77, 0.07)
+        );
+
+    color: var(--gold-light);
+
+    border-left: 3px solid var(--gold);
+}
+
+.sidebar-note {
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(208, 176, 120, 0.17);
+    border-radius: 11px;
+}
+
+
+/* =====================================================
+   4. TOPBAR
+   ===================================================== */
+
+.topbar {
+    background: rgba(248, 246, 240, 0.94);
+    border-bottom: 1px solid var(--border);
+
+    backdrop-filter: blur(12px);
+}
+
+.breadcrumb {
+    color: var(--text-secondary);
+}
+
+.breadcrumb strong {
+    color: var(--navy);
+}
+
+.status {
+    color: var(--text-secondary);
+}
+
+
+/* =====================================================
+   5. MAIN CONTENT + LARGE VOLTEX WATERMARK
+   ===================================================== */
+
+.content {
+    position: relative;
+    isolation: isolate;
+
+    min-height: calc(100vh - 68px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #F0EDE5 0%,
+            #F5F2EB 48%,
+            #EAE6DC 100%
+        );
+}
+
+/* LOGO WATERMARK */
+
+.content::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 0;
+    pointer-events: none;
+
+    background-image:
+        url("assets/voltex-logo.png");
+
+    background-repeat: no-repeat;
+
+    background-position:
+        right -4% center;
+
+    background-size:
+        min(85vw, 1250px) auto;
+
+    opacity: 0.60;
+
+    filter:
+        contrast(1.35)
+        saturate(1.25)
+        drop-shadow(0 8px 20px rgba(181, 139, 77, 0.12));
+}
+
+
+/* GEOMETRIC ENGINEERING PATTERN */
+
+.content::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 0;
+    pointer-events: none;
+
+    background-image:
+
+        /* Horizontal engineering lines */
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 79px,
+            rgba(181, 139, 77, 0.10) 80px,
+            transparent 81px
+        ),
+
+        /* Vertical engineering lines */
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 79px,
+            rgba(181, 139, 77, 0.10) 80px,
+            transparent 81px
+        ),
+
+        /* Connection points */
+        radial-gradient(
+            circle,
+            rgba(181, 139, 77, 0.24) 1.2px,
+            transparent 2px
+        );
+
+    background-size:
+        auto,
+        auto,
+        80px 80px;
+
+    opacity: 0.35;
+}
+
+/* Keep all page content above watermark */
+
+.content > .page {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =====================================================
+   6. PAGE HEADINGS
+   ===================================================== */
+
+.eyebrow {
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+h1 {
+    color: var(--navy);
+    font-weight: 750;
+    letter-spacing: -0.8px;
+}
+
+h1 span {
+    color: var(--gold);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   7. HERO SECTION
+   ===================================================== */
+
+.hero {
+    position: relative;
+
+    background:
+        linear-gradient(
+            115deg,
+            #111B25 0%,
+            #202E3C 58%,
+            #344354 100%
+        );
+
+    border: 1px solid rgba(208, 176, 120, 0.25);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 15px 35px rgba(17, 27, 37, 0.17),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    overflow: hidden;
+}
+
+/* Geometric lines inside hero */
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+        repeating-linear-gradient(
+            135deg,
+            transparent 0px,
+            transparent 64px,
+            rgba(208, 176, 120, 0.07) 65px,
+            transparent 66px
+        );
+
+    opacity: 0.65;
+}
+
+/* Gold ambient light */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 360px;
+    height: 360px;
+
+    right: 3%;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(181, 139, 77, 0.17) 0%,
+            rgba(181, 139, 77, 0.05) 45%,
+            transparent 72%
+        );
+
+    pointer-events: none;
+}
+.hero::before,
+.hero::after {
+    z-index: 0;
+}
+.hero:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 19px 42px rgba(17, 27, 37, 0.22);
+}
+
+.hero-text {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text > small {
+    color: var(--gold-light);
+    letter-spacing: 2px;
+}
+
+.hero h2 {
+    color: #F8F6F0;
+    font-weight: 750;
+    letter-spacing: -0.7px;
+}
+
+.hero h2 span {
+    color: var(--gold-light);
+}
+
+.hero p {
+    color: #C5CED8;
+}
+
+
+/* =====================================================
+   8. HERO LIGHTNING — MORE VISIBLE
+   ===================================================== */
+
+.hero-symbol {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    right: 8%;
+
+    color: var(--gold-light);
+
+    opacity: 0.9;
+
+    font-size: 190px;
+    font-weight: bold;
+
+    filter:
+        drop-shadow(0 0 12px rgba(208, 176, 120, 0.22));
+
+    transition: .35s ease;
+}
+
+.hero-symbol:hover {
+    opacity: 1;
+
+    transform: scale(1.06);
+
+    filter:
+        drop-shadow(0 0 15px rgba(208, 176, 120, 0.55));
+}
+
+.lightning {
+    position: relative;
+    z-index: 2;
+
+    filter:
+        grayscale(1)
+        sepia(1)
+        saturate(2.2)
+        hue-rotate(350deg)
+        brightness(1.15)
+        drop-shadow(0 0 8px rgba(208, 176, 120, 0.55));
+}
+
+
+/* =====================================================
+   9. HERO BUTTON
+   ===================================================== */
+
+.primary-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #D0B078,
+            #B58B4D
+        );
+
+    color: #111B25;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 8px;
+
+    padding: 13px 20px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 12px rgba(181, 139, 77, 0.20);
+
+    transition: .25s ease;
+}
+
+.primary-btn:hover {
+    background: #DFC18C;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(181, 139, 77, 0.28);
+}
+
+
+/* =====================================================
+   10. SECTION HEADING
+   ===================================================== */
+
+.section-heading {
+    margin-top: 42px;
+}
+
+.section-heading small {
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    color: var(--navy);
+    font-weight: 750;
+}
+
+
+/* =====================================================
+   11. TOOL CARDS
+   ===================================================== */
+
+.tool-card {
+    background: rgba(248, 246, 240, 0.88);
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 4px 14px rgba(17, 27, 37, 0.025);
+
+    transition: .28s ease;
+}
+
+.tool-card:hover {
+    background: #FCFAF5;
+
+    border-color: var(--gold);
+
+    transform: translateY(-5px);
+
+    box-shadow: var(--shadow-hover);
+}
+
+.tool-icon {
+    border-radius: 11px;
+}
+
+.blue {
+    color: var(--gold-hover);
+    background: #EFE4D0;
+}
+
+.cyan {
+    color: #627D96;
+    background: #E3E9ED;
+}
+
+.tool-card > small {
+    color: var(--gold);
+    letter-spacing: 0.5px;
+}
+
+.tool-card h3 {
+    color: var(--navy);
+    font-weight: 700;
+}
+
+.tool-card p {
+    color: var(--text-secondary);
+}
+
+.tool-card > strong {
+    color: var(--gold-hover);
+}
+
+
+/* =====================================================
+   12. FEATURE CARDS
+   ===================================================== */
+
+.feature-card {
+    background: rgba(248, 246, 240, 0.9);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    transition: .28s ease;
+}
+
+.feature-card:hover {
+    background: #FCFAF5;
+
+    border-color: var(--gold);
+
+    box-shadow: var(--shadow-hover);
+
+    transform: translateY(-4px);
+}
+
+.feature-card > span {
+    color: var(--gold);
+}
+
+.feature-card strong {
+    color: var(--navy);
+}
+
+.feature-card small {
+    color: var(--text-secondary);
+}
+
+
+/* =====================================================
+   13. CALCULATOR PANEL
+   ===================================================== */
+
+.calculator {
+    background: rgba(248, 246, 240, 0.95);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow: var(--shadow);
+
+    backdrop-filter: blur(8px);
+}
+
+.calculator h2 {
+    color: var(--navy);
+}
+
+.calculator > p {
+    color: var(--text-secondary);
+}
+
+.field label {
+    color: var(--text-secondary);
+}
+
+.field input,
+.field select {
+    background: #FCFAF5;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    color: var(--text);
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--gold);
+
+    box-shadow:
+        0 0 0 3px rgba(181, 139, 77, 0.14);
+}
+
+.calc-result {
+    background: #F0EBDD;
+
+    border: 1px solid #DED3BE;
+
+    border-radius: 10px;
+}
+
+.calc-result h3 {
+    color: var(--gold-hover);
+}
+
+
+/* =====================================================
+   14. INTERACTION AND ACCESSIBILITY
+   ===================================================== */
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--gold);
+
+    outline-offset: 3px;
+}
+
+.tool-card:active,
+.feature-card:active {
+    transform: scale(0.99);
+}
+
+.secondary-btn:hover {
+    color: var(--gold-hover);
+}
+
+
+/* =====================================================
+   15. RESPONSIVE — TABLET
+   ===================================================== */
+
+@media (max-width: 1050px) {
+
+    .content::before {
+        background-size: 430px auto;
+        background-position: right 3% center;
+
+        opacity: 0.055;
+    }
+
+    .hero-symbol {
+        right: 2%;
+        font-size: 155px;
+    }
+
+}
+
+
+/* =====================================================
+   16. RESPONSIVE — MOBILE
+   ===================================================== */
+
+@media (max-width: 760px) {
+
+    .content {
+        padding: 25px 17px;
+    }
+
+    .content::before {
+        background-size: 330px auto;
+        background-position: right -90px top 180px;
+
+        opacity: 0.045;
+    }
+
+    .content::after {
+        opacity: 0.2;
+    }
+
+    .hero {
+        position: relative;
+        min-height: 280px;
+    }
+
+    .hero-text {
+        max-width: 100%;
+    }
+
+    .hero-symbol {
+        position: absolute;
+
+        right: -10px;
+        bottom: -35px;
+
+        font-size: 125px;
+
+        opacity: 0.23;
+
+        pointer-events: none;
+    }
+
+    .hero-symbol:hover {
+        transform: none;
+    }
+
+    .hero h2 {
+        font-size: 26px;
+    }
+
+    .brand-logo {
+        width: 62px;
+        height: 62px;
+    }
+
+}
+
+
+/* =====================================================
+   17. RESPONSIVE — SMALL MOBILE
+   ===================================================== */
+
+@media (max-width: 480px) {
+
+    .content {
+        padding: 23px 15px;
+    }
+
+    .content::before {
+        background-size: 260px auto;
+        background-position: right -100px top 170px;
+
+        opacity: 0.035;
+    }
+
+    .hero {
+        padding: 25px 20px;
+    }
+
+    .hero-symbol {
+        font-size: 105px;
+        right: -15px;
+        bottom: -25px;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .section-heading {
+        margin-top: 32px;
+    }
+
+    .tool-card,
+    .feature-card {
+        padding: 19px;
+    }
+
+}
+/* LAPTOP: 1051px – 1439px */
+
+@media (min-width: 1051px) and (max-width: 1439px) {
+
+    .content::before {
+        background-size: 1050px auto;
+
+        background-position:
+            right -5% center;
+
+        opacity: 0.55;
+    }
+
+}
+
+
+/* TABLET LANDSCAPE: 901px – 1050px */
+
+@media (min-width: 901px) and (max-width: 1050px) {
+
+    .content::before {
+        background-size: 800px auto;
+
+        background-position:
+            right -90px center;
+
+        opacity: 0.38;
+    }
+
+}
+
+
+/* TABLET PORTRAIT: 761px – 900px */
+
+@media (min-width: 761px) and (max-width: 900px) {
+
+    .content::before {
+        background-size: 600px auto;
+
+        background-position:
+            right -80px top 100px;
+
+        opacity: 0.30;
+    }
+
+}
+
+
+/* HP: 481px – 760px */
+
+@media (min-width: 481px) and (max-width: 760px) {
+
+    .content::before {
+        background-size: 420px auto;
+
+        background-position:
+            right -110px top 90px;
+
+        opacity: 0.22;
+    }
+
+}
+
+
+/* HP KECIL: 480px ke bawah */
+
+@media (max-width: 480px) {
+
+    .content::before {
+        background-size: 340px auto;
+
+        background-position:
+            right -105px top 75px;
+
+        opacity: 0.18;
+    }
+
+}
+/* =====================================================
+   END OF VOLTEX BRANDING SYSTEM
+   ===================================================== */
