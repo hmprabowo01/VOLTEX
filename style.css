@@ -3,7 +3,7 @@
     --navy: #101d35;
     --blue: #3568e8;
     --cyan: #43c5d9;
-    --bg: #f4f7fb;
+    --bg: #e5eaf0;
     --text: #17243b;
     --muted: #8290a4;
     --border: #e7edf5;
@@ -30,7 +30,7 @@ button {
 }
 
 .sidebar {
-    width: 255px;
+    width: 250px;
     height: 100vh;
     position: fixed;
     left: 0;
@@ -135,13 +135,13 @@ button {
 }
 
 .main-content {
-    margin-left: 255px;
+    margin-left: 250px;
     min-height: 100vh;
 }
 
 .topbar {
     height: 68px;
-    background: white;
+    background: rgb(240, 241, 243);
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
@@ -224,7 +224,7 @@ h1 span {
 }
 
 .hero {
-    background: linear-gradient(110deg, #172b4d, #1d5180);
+    background: linear-gradient(110deg, #a9b6ce, #1d5180);
     min-height: 270px;
     border-radius: 15px;
     padding: 40px;
@@ -234,6 +234,12 @@ h1 span {
     align-items: center;
     overflow: hidden;
     position: relative;
+    box-shadow: 0 15px 40px 10px rgba(115, 166, 224, 0.8) !important;
+    transition: all 2s ease;
+}
+.hero:hover {
+    box-shadow: 0 15px 40px 5px rgba(7, 134, 245, 0.3);
+    transform: translateY(-6px);
 }
 
 .hero-text {
@@ -260,18 +266,119 @@ h1 span {
 
 .hero p {
     font-size: 12px;
-    color: #b6c7df;
+    color: #b7c7de;
     line-height: 1.7;
     margin-bottom: 20px;
 }
 
 .hero-symbol {
-    position: absolute;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     right: 12%;
-    color: #83dce8;
-    opacity: .15;
+    color: #497983;
+    opacity: 0.8;
     font-size: 190px;
     font-weight: bold;
+}
+.lightning {
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 3px #ffffff)
+            drop-shadow(0 0 7px #43c5d9)
+            drop-shadow(0 0 12px #43c5d9);
+}
+
+
+
+/* ===== ELECTRIC LIGHTNING SPARK ===== */
+
+.spark {
+    position: absolute;
+    width: 20px;
+    height: 38px;
+
+    background: linear-gradient(
+        180deg,
+        hsl(44, 100%, 51%) 0%,
+        #fe8c00 45%,
+        #ff3516 100%
+    );
+
+    clip-path: polygon(
+        55% 0%,
+        20% 42%,
+        45% 42%,
+        18% 100%,
+        85% 38%,
+        58% 38%,
+        80% 0%
+    );
+
+    filter:
+        drop-shadow(0 0 4px #ffffff)
+        drop-shadow(0 0 8px #43c5d9)
+        drop-shadow(0 0 15px #168cff);
+
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* POSISI PERCIKAN */
+
+.hero-symbol:hover .spark-1 {
+    top: 18%;
+    left: 22%;
+    rotate: -20deg;
+    animation: electric-spark 0.35s infinite;
+}
+
+.hero-symbol:hover .spark-2 {
+    top: 25%;
+    right: 18%;
+    rotate: 35deg;
+    animation: electric-spark 0.4s 0.1s infinite;
+}
+
+.hero-symbol:hover .spark-3 {
+    bottom: 20%;
+    left: 18%;
+    rotate: -45deg;
+    animation: electric-spark 0.3s 0.2s infinite;
+}
+
+.hero-symbol:hover .spark-4 {
+    bottom: 18%;
+    right: 20%;
+    rotate: 50deg;
+    animation: electric-spark 0.45s 0.15s infinite;
+}
+
+/* ANIMASI LONCATAN LISTRIK */
+
+@keyframes electric-spark {
+    0% {
+        transform: scale(0.2) translate(0, 0);
+        opacity: 0;
+    }
+
+    25% {
+        transform: scale(1.2) translate(3px, -3px);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(0.8) translate(-3px, 2px);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(0.1) translate(5px, -8px);
+        opacity: 0;
+    }
 }
 
 .hero-symbol small {
@@ -392,6 +499,7 @@ h1 span {
     flex-direction: column;
     gap: 9px;
     transition: .2s;
+    
 }
 
 .feature-card > span {
