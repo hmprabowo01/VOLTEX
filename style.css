@@ -940,108 +940,7 @@ body {
 }
 
 
-/* =====================================================
-   5. MAIN CONTENT + LARGE VOLTEX WATERMARK
-   ===================================================== */
 
-.content {
-    position: relative;
-    isolation: isolate;
-
-    min-height: calc(100vh - 68px);
-
-    background:
-        linear-gradient(
-            135deg,
-            #F0EDE5 0%,
-            #F5F2EB 48%,
-            #EAE6DC 100%
-        );
-}
-
-/* LOGO WATERMARK */
-
-.content::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    z-index: 0;
-    pointer-events: none;
-
-    background-image:
-        url("assets/voltex-logo.png");
-
-    background-repeat: no-repeat;
-
-    background-position:
-        right -4% center;
-
-    background-size:
-        min(85vw, 1250px) auto;
-
-    opacity: 0.60;
-
-    filter:
-        contrast(1.35)
-        saturate(1.25)
-        drop-shadow(0 8px 20px rgba(181, 139, 77, 0.12));
-}
-
-
-/* GEOMETRIC ENGINEERING PATTERN */
-
-.content::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    z-index: 0;
-    pointer-events: none;
-
-    background-image:
-
-        /* Horizontal engineering lines */
-        repeating-linear-gradient(
-            0deg,
-            transparent 0px,
-            transparent 79px,
-            rgba(181, 139, 77, 0.10) 80px,
-            transparent 81px
-        ),
-
-        /* Vertical engineering lines */
-        repeating-linear-gradient(
-            90deg,
-            transparent 0px,
-            transparent 79px,
-            rgba(181, 139, 77, 0.10) 80px,
-            transparent 81px
-        ),
-
-        /* Connection points */
-        radial-gradient(
-            circle,
-            rgba(181, 139, 77, 0.24) 1.2px,
-            transparent 2px
-        );
-
-    background-size:
-        auto,
-        auto,
-        80px 80px;
-
-    opacity: 0.35;
-}
-
-/* Keep all page content above watermark */
-
-.content > .page {
-    position: relative;
-    z-index: 1;
-}
 
 
 /* =====================================================
@@ -1469,89 +1368,214 @@ button:focus-visible {
     color: var(--gold-hover);
 }
 
-
 /* =====================================================
-   15. RESPONSIVE — TABLET
+   VOLTEX — RESPONSIVE WATERMARK SYSTEM
+   Desktop | Laptop | Tablet | Mobile
    ===================================================== */
 
-@media (max-width: 1050px) {
+/* BASE: DESKTOP BESAR */
+
+.content {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #F0EDE5 0%,
+            #F5F2EB 48%,
+            #EAE6DC 100%
+        );
+}
+
+/* WATERMARK */
+
+.content::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 650px;
+
+    z-index: 0;
+    pointer-events: none;
+
+    background-image: url("assets/voltex-logo.png");
+
+    background-repeat: no-repeat;
+    background-position: right -30px top 30px;
+
+    background-size: 1150px auto;
+
+    opacity: 0.42;
+
+    filter:
+        contrast(1.25)
+        saturate(1.15);
+}
+
+/* PATTERN */
+
+.content::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 0;
+    pointer-events: none;
+
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 79px,
+            rgba(181, 139, 77, 0.07) 80px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 79px,
+            rgba(181, 139, 77, 0.07) 80px
+        );
+
+    opacity: 0.3;
+}
+
+/* KONTEN DI ATAS WATERMARK */
+
+.content > .page {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =====================================================
+   LAPTOP
+   1051px - 1439px
+   ===================================================== */
+
+@media (min-width: 1051px) and (max-width: 1439px) {
 
     .content::before {
-        background-size: 430px auto;
-        background-position: right 3% center;
+        background-size: 950px auto;
+        background-position: right -60px top 40px;
 
-        opacity: 0.055;
-    }
-
-    .hero-symbol {
-        right: 2%;
-        font-size: 155px;
+        opacity: 0.38;
     }
 
 }
 
 
 /* =====================================================
-   16. RESPONSIVE — MOBILE
+   TABLET LANDSCAPE
+   901px - 1050px
    ===================================================== */
 
-@media (max-width: 760px) {
+@media (min-width: 901px) and (max-width: 1050px) {
 
     .content {
-        padding: 25px 17px;
+        padding: 30px;
     }
 
     .content::before {
-        background-size: 330px auto;
-        background-position: right -90px top 180px;
+        background-size: 720px auto;
+        background-position: right -100px top 80px;
 
-        opacity: 0.045;
+        opacity: 0.25;
     }
 
-    .content::after {
-        opacity: 0.2;
+    .hero-symbol {
+        font-size: 145px;
+    }
+
+}
+
+
+/* =====================================================
+   TABLET PORTRAIT
+   761px - 900px
+   ===================================================== */
+
+@media (min-width: 761px) and (max-width: 900px) {
+
+    .content {
+        padding: 28px;
+    }
+
+    .content::before {
+        background-size: 560px auto;
+        background-position: right -100px top 90px;
+
+        opacity: 0.20;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .hero {
-        position: relative;
-        min-height: 280px;
+        padding: 30px;
     }
 
-    .hero-text {
-        max-width: 100%;
+    .hero-symbol {
+        font-size: 125px;
+        right: 0;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE BESAR
+   481px - 760px
+   ===================================================== */
+
+@media (min-width: 481px) and (max-width: 760px) {
+
+    .content {
+        padding: 25px 20px;
+    }
+
+    .content::before {
+        height: 420px;
+
+        background-size: 400px auto;
+        background-position: right -115px top 65px;
+
+        opacity: 0.12;
+    }
+
+    .content::after {
+        opacity: 0.15;
+    }
+
+    .hero {
+        min-height: 300px;
+        padding: 28px 23px;
     }
 
     .hero-symbol {
         position: absolute;
 
         right: -10px;
-        bottom: -35px;
+        bottom: -30px;
 
-        font-size: 125px;
+        font-size: 120px;
 
-        opacity: 0.23;
-
-        pointer-events: none;
-    }
-
-    .hero-symbol:hover {
-        transform: none;
-    }
-
-    .hero h2 {
-        font-size: 26px;
-    }
-
-    .brand-logo {
-        width: 62px;
-        height: 62px;
+        opacity: 0.3;
     }
 
 }
 
 
 /* =====================================================
-   17. RESPONSIVE — SMALL MOBILE
+   MOBILE KECIL
+   480px KE BAWAH
    ===================================================== */
 
 @media (max-width: 480px) {
@@ -1561,344 +1585,51 @@ button:focus-visible {
     }
 
     .content::before {
-        background-size: 260px auto;
-        background-position: right -100px top 170px;
+        height: 380px;
 
-        opacity: 0.035;
+        background-size: 290px auto;
+        background-position: right -105px top 65px;
+
+        opacity: 0.09;
+    }
+
+    .content::after {
+        opacity: 0.12;
     }
 
     .hero {
+        min-height: 280px;
         padding: 25px 20px;
     }
 
-    .hero-symbol {
-        font-size: 105px;
-        right: -15px;
-        bottom: -25px;
-    }
-
     .hero h2 {
         font-size: 24px;
     }
 
-    .section-heading {
-        margin-top: 32px;
-    }
-
-    .tool-card,
-    .feature-card {
-        padding: 19px;
-    }
-
-}
-/* LAPTOP: 1051px – 1439px */
-
-@media (min-width: 1051px) and (max-width: 1439px) {
-
-    .content::before {
-        background-size: 1050px auto;
-
-        background-position:
-            right -5% center;
-
-        opacity: 0.55;
-    }
-
-}
-
-
-/* TABLET LANDSCAPE: 901px – 1050px */
-
-@media (min-width: 901px) and (max-width: 1050px) {
-
-    .content::before {
-        background-size: 800px auto;
-
-        background-position:
-            right -90px center;
-
-        opacity: 0.38;
-    }
-
-}
-
-
-/* TABLET PORTRAIT: 761px – 900px */
-
-@media (min-width: 761px) and (max-width: 900px) {
-
-    .content::before {
-        background-size: 600px auto;
-
-        background-position:
-            right -80px top 100px;
-
-        opacity: 0.30;
-    }
-
-}
-
-
-/* HP: 481px – 760px */
-
-@media (min-width: 481px) and (max-width: 760px) {
-
-    .content::before {
-        background-size: 420px auto;
-
-        background-position:
-            right -110px top 90px;
-
-        opacity: 0.22;
-    }
-
-}
-
-
-/* HP KECIL: 480px ke bawah */
-
-@media (max-width: 480px) {
-
-    .content::before {
-        background-size: 340px auto;
-
-        background-position:
-            right -105px top 75px;
-
-        opacity: 0.18;
-    }
-
-}
-
-/* =====================================================
-   VOLTEX V5 — MOBILE RESPONSIVE REFINEMENT
-   Khusus HP, desktop tidak berubah
-   ===================================================== */
-
-@media (max-width: 760px) {
-
-    /* 1. BACKGROUND WATERMARK */
-    .content::before {
-        background-size: 240px auto;
-
-        background-position:
-            right -65px bottom 100px;
-
-        opacity: 0.13;
-
-        filter:
-            contrast(1.2)
-            saturate(1.2);
-    }
-
-    /* 2. GEOMETRIC BACKGROUND */
-    .content::after {
-        opacity: 0.13;
-        background-size:
-            55px 55px;
-    }
-
-    /* 3. DASHBOARD CONTENT */
-    .content {
-        padding: 26px 18px 40px;
-        overflow: hidden;
-    }
-
-    .page {
-        width: 100%;
-        min-width: 0;
-    }
-
-    /* 4. MAIN TITLE */
-    .page h1 {
-        font-size: clamp(27px, 7vw, 34px);
-        line-height: 1.2;
-    }
-
-    .subtitle {
-        font-size: 14px;
-        line-height: 1.7;
-    }
-
-    /* 5. HERO SECTION */
-    .hero {
-        display: flex;
-        flex-direction: column;
-
-        position: relative;
-
-        width: 100%;
-        min-height: 0;
-
-        padding: 27px 22px;
-
-        border-radius: 18px;
-
-        overflow: hidden;
-    }
-
-    /* 6. HERO TEXT */
-    .hero-text {
-        position: relative;
-        z-index: 3;
-
-        width: 100%;
-        max-width: 100%;
-
-        flex: none;
-    }
-
-    .hero-text > small {
-        display: block;
-
-        font-size: 10px;
-        letter-spacing: 1.5px;
-
-        color: #D0B078;
-
-        max-width: 100%;
-    }
-
-    .hero h2 {
-        width: 100%;
-        max-width: 100%;
-
-        font-size: clamp(25px, 6.5vw, 30px);
-
-        line-height: 1.3;
-
-        letter-spacing: -0.5px;
-
-        color: #F8F6F0;
-    }
-
-    .hero h2 span {
-        color: #D0B078;
-    }
-
-    .hero p {
-        max-width: 100%;
-
-        font-size: 13px;
-        line-height: 1.8;
-
-        color: #D1D8DF;
-    }
-
-    /* 7. LIGHTNING SYMBOL */
     .hero-symbol {
         position: absolute;
 
-        z-index: 1;
+        right: -15px;
+        bottom: -25px;
 
-        right: -25px;
-        bottom: 45px;
+        font-size: 105px;
 
-        width: auto;
-        height: auto;
-
-        font-size: 115px;
-
-        opacity: 0.16;
-
-        pointer-events: none;
-
-        filter:
-            drop-shadow(0 0 10px rgba(208, 176, 120, 0.2));
+        opacity: 0.25;
     }
 
-    .hero-symbol:hover {
-        transform: none;
-    }
-
-    /* 8. HERO BUTTON */
-    .primary-btn {
-        position: relative;
-        z-index: 4;
-
-        display: inline-flex;
-
-        width: auto;
-        max-width: 100%;
-
-        justify-content: center;
-
-        padding: 13px 19px;
-
-        font-size: 13px;
-    }
-
-    /* 9. CATEGORY SECTION */
-    .section-heading {
-        margin-top: 35px;
-    }
-
-    .section-heading h2 {
-        font-size: 21px;
-        line-height: 1.4;
-    }
-
-    /* 10. CARD LAYOUT */
     .tool-grid,
-    .feature-grid {
-        grid-template-columns: minmax(0, 1fr);
-
-        width: 100%;
-        gap: 15px;
+    .feature-grid,
+    .calc-grid {
+        grid-template-columns: 1fr;
     }
 
-    .tool-card,
-    .feature-card {
-        width: 100%;
-        min-width: 0;
-
-        box-sizing: border-box;
-    }
-
-    /* 11. PREVENT HORIZONTAL OVERFLOW */
-    .main-content,
-    .content,
-    .page {
-        max-width: 100%;
-        box-sizing: border-box;
+    .calculator {
+        padding: 18px;
     }
 
 }
 
 
-/* =====================================================
-   EXTRA SMALL PHONES
-   ===================================================== */
-
-@media (max-width: 380px) {
-
-    .content {
-        padding-left: 14px;
-        padding-right: 14px;
-    }
-
-    .hero {
-        padding: 23px 18px;
-    }
-
-    .hero h2 {
-        font-size: 24px;
-    }
-
-    .hero-symbol {
-        font-size: 95px;
-
-        right: -30px;
-        bottom: 35px;
-
-        opacity: 0.13;
-    }
-
-    .page h1 {
-        font-size: 26px;
-    }
-
-}
 
 /* =====================================================
    END OF VOLTEX BRANDING SYSTEM
