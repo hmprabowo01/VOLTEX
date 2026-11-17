@@ -3,6 +3,10 @@ const $ = id => document.getElementById(id);
 
 let langkahTerakhir = [];
 
+// ===================================
+// NAVIGASI
+// ===================================
+
 function showPage(page) {
     document.querySelectorAll(".page").forEach(el => {
         el.classList.toggle("active", el.id === page);
@@ -31,64 +35,83 @@ $("menuToggle").addEventListener("click", () => {
     $("sidebar").classList.toggle("open");
 });
 
+// ===================================
+// MENU KALKULATOR
+// ===================================
+
 function openCalculator(type) {
     const tools = ["steps", "converter"];
     const area = $(tools.includes(type) ? "toolsArea" : "calculatorArea");
 
     const forms = {
         dc: `
-            <h2>Kalkulator Listrik DC</h2>
-            <p>Pilih besaran listrik yang ingin dihitung.</p>
-            <div class="field">
-                <label>Variabel yang dicari</label>
-                <select id="dcTarget">
-                    <option value="v">Tegangan (V)</option>
-                    <option value="i">Arus (I)</option>
-                    <option value="r">Hambatan (R)</option>
-                    <option value="p">Daya (P)</option>
-                    <option value="e">Energi (E)</option>
-                </select>
+            <h2>DC Circuit Calculator</h2>
+            <p>Hitung resistansi total, arus, tegangan, daya, dan energi pada rangkaian DC.</p>
+
+            <div class="calc-grid">
+                <div class="field">
+                    <label>Besaran yang ingin dihitung</label>
+                    <select id="dcTarget" onchange="dcFields()">
+                        <option value="rt">Resistansi Total (Rt)</option>
+                        <option value="i">Arus Total (I)</option>
+                        <option value="v">Tegangan Total (V)</option>
+                        <option value="p">Daya Listrik (P)</option>
+                        <option value="e">Energi Listrik (E)</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Konfigurasi rangkaian</label>
+                    <select id="dcType" onchange="dcFields()">
+                        <option value="1">Seri</option>
+                        <option value="2">Paralel</option>
+                        <option value="3">Campuran</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Jumlah resistor (2–8)</label>
+                    <select id="dcCount" onchange="dcFields()">
+                        <option value="2">2 Resistor</option>
+                        <option value="3">3 Resistor</option>
+                        <option value="4">4 Resistor</option>
+                        <option value="5">5 Resistor</option>
+                        <option value="6">6 Resistor</option>
+                        <option value="7">7 Resistor</option>
+                        <option value="8">8 Resistor</option>
+                    </select>
+                </div>
             </div>
+
             <div id="dcInputs" class="calc-grid"></div>
+
             <div class="calc-actions">
                 <button class="primary-btn" onclick="calculateDC()">Hitung DC →</button>
                 <button class="secondary-btn" onclick="openCalculator('dc')">Reset</button>
-            </div>`,
+            </div>
+        `,
 
         ac: `
             <h2>Kalkulator Listrik AC</h2>
             <p>Masukkan parameter arus bolak-balik.</p>
+
             <div class="calc-grid">
                 ${field("Tegangan RMS (V)", "acV")}
                 ${field("Arus RMS (A)", "acI")}
                 ${field("Frekuensi (Hz)", "acF")}
-                ${field("Power Factor (0-1)", "acPF")}
+                ${field("Power Factor (0–1)", "acPF")}
             </div>
+
             <div class="calc-actions">
                 <button class="primary-btn" onclick="calculateAC()">Hitung AC →</button>
                 <button class="secondary-btn" onclick="openCalculator('ac')">Reset</button>
-            </div>`,
-
-        circuit: `
-            <h2>Kalkulator Rangkaian</h2>
-            <p>Pilih konfigurasi rangkaian resistor.</p>
-            <div class="field">
-                <label>Jenis rangkaian</label>
-                <select id="circuitType" onchange="circuitFields()">
-                    <option value="1">Seri</option>
-                    <option value="2">Paralel</option>
-                    <option value="3">Campuran (R1 seri dengan R2 paralel R3)</option>
-                </select>
             </div>
-            <div id="circuitInputs" class="calc-grid"></div>
-            <div class="calc-actions">
-                <button class="primary-btn" onclick="calculateCircuit()">Hitung Rangkaian →</button>
-                <button class="secondary-btn" onclick="openCalculator('circuit')">Reset</button>
-            </div>`,
+        `,
 
         phase: `
             <h2>Kalkulator Listrik 3 Fasa</h2>
             <p>Pilih metode perhitungan sistem tiga fasa.</p>
+
             <div class="field">
                 <label>Metode perhitungan</label>
                 <select id="phaseMode" onchange="phaseFields()">
@@ -96,15 +119,19 @@ function openCalculator(type) {
                     <option value="2">Menghitung arus dari daya aktif</option>
                 </select>
             </div>
+
             <div id="phaseInputs" class="calc-grid"></div>
+
             <div class="calc-actions">
                 <button class="primary-btn" onclick="calculatePhase()">Hitung 3 Fasa →</button>
                 <button class="secondary-btn" onclick="openCalculator('phase')">Reset</button>
-            </div>`,
+            </div>
+        `,
 
         smart: `
             <h2>Smart Formula</h2>
-            <p>Tentukan variabel yang ingin dicari dan masukkan nilai yang diketahui. Isi 0 jika tidak diketahui.</p>
+            <p>Tentukan variabel yang ingin dicari. Isi 0 jika tidak diketahui.</p>
+
             <div class="field">
                 <label>Variabel yang dicari</label>
                 <select id="smartTarget">
@@ -114,27 +141,32 @@ function openCalculator(type) {
                     <option value="4">Daya (P)</option>
                 </select>
             </div>
+
             <div class="calc-grid">
                 ${field("Tegangan (V)", "smartV", "0")}
                 ${field("Arus (A)", "smartI", "0")}
                 ${field("Hambatan (Ohm)", "smartR", "0")}
                 ${field("Daya (W)", "smartP", "0")}
             </div>
+
             <div class="calc-actions">
                 <button class="primary-btn" onclick="calculateSmart()">Cari Variabel →</button>
                 <button class="secondary-btn" onclick="openCalculator('smart')">Reset</button>
-            </div>`,
+            </div>
+        `,
 
         steps: `
             <h2>Step-by-Step</h2>
             <p>Menampilkan tahapan perhitungan terakhir yang telah dilakukan.</p>
             <div id="stepsResult" class="calc-result">
                 ${stepsHTML()}
-            </div>`,
+            </div>
+        `,
 
         converter: `
             <h2>Unit Converter</h2>
             <p>Konversi satuan besaran listrik.</p>
+
             <div class="field">
                 <label>Jenis konversi</label>
                 <select id="convertType">
@@ -148,40 +180,50 @@ function openCalculator(type) {
                     <option value="8">kOhm ke Ohm</option>
                 </select>
             </div>
+
             <div class="field">
                 <label>Nilai yang dikonversi</label>
-                <input type="number" id="convertValue" placeholder="Masukkan nilai">
+                <input type="number" id="convertValue" step="any" placeholder="Masukkan nilai">
             </div>
+
             <div class="calc-actions">
                 <button class="primary-btn" onclick="convertUnit()">Konversi →</button>
                 <button class="secondary-btn" onclick="openCalculator('converter')">Reset</button>
-            </div>`
+            </div>
+        `
     };
+
+    if (!forms[type]) return;
 
     area.innerHTML = `
         <div class="calculator">
             ${forms[type]}
-            <div id="result" class="calc-result" style="display:none"></div>
+            ${type === "steps" ? "" : '<div id="result" class="calc-result" style="display:none"></div>'}
         </div>
     `;
 
     if (type === "dc") dcFields();
-    if (type === "circuit") circuitFields();
     if (type === "phase") phaseFields();
 }
+
+// ===================================
+// FUNGSI DASAR
+// ===================================
 
 function field(label, id, placeholder = "Masukkan nilai") {
     return `
         <div class="field">
             <label>${label}</label>
-            <input type="number" id="${id}" step="any"
-                placeholder="${placeholder}">
+            <input type="number" id="${id}" step="any" placeholder="${placeholder}">
         </div>
     `;
 }
 
 function getValue(id) {
-    const value = $(id).value.trim();
+    const element = $(id);
+    if (!element) return NaN;
+
+    const value = element.value.trim();
     return value === "" ? NaN : Number(value);
 }
 
@@ -191,111 +233,242 @@ function format(value) {
     });
 }
 
-function showResult(title, lines) {
-    langkahTerakhir = [title, ...lines];
+function validNonNegative(...values) {
+    return values.every(value =>
+        Number.isFinite(value) && value >= 0
+    );
+}
 
-    $("result").style.display = "block";
-    $("result").innerHTML = `
+// ===================================
+// SISTEM STEP-BY-STEP
+// ===================================
+
+function mulaiLangkah() {
+    langkahTerakhir = [];
+}
+
+function tambahLangkah(teks) {
+    if (langkahTerakhir.length < 10) {
+        langkahTerakhir.push(teks);
+    }
+}
+
+function showResult(title, lines) {
+    mulaiLangkah();
+
+    tambahLangkah(title);
+    lines.forEach(line => tambahLangkah(line));
+
+    const resultArea = $("result");
+
+    resultArea.style.display = "block";
+    resultArea.innerHTML = `
         <h3>${title}</h3>
         ${lines.map(line => `<p class="step">${line}</p>`).join("")}
     `;
 }
 
 function showError(message) {
-    $("result").style.display = "block";
-    $("result").innerHTML = `<h3>Perhatian</h3><p>${message}</p>`;
-}
+    const resultArea = $("result");
 
-function validNonNegative(...values) {
-    return values.every(v => Number.isFinite(v) && v >= 0);
+    resultArea.style.display = "block";
+    resultArea.innerHTML = `
+        <h3>Perhatian</h3>
+        <p>${message}</p>
+    `;
 }
 
 // ===================================
-// 1. KALKULATOR DC
+// 1. DC CIRCUIT CALCULATOR
 // ===================================
 
 function dcFields() {
     const target = $("dcTarget").value;
+    const type = $("dcType").value;
+    const countElement = $("dcCount");
 
-    const inputs = {
-        v: ["Arus (A)", "Hambatan (Ohm)"],
-        i: ["Tegangan (V)", "Hambatan (Ohm)"],
-        r: ["Tegangan (V)", "Arus (A)"],
-        p: ["Tegangan (V)", "Arus (A)"],
-        e: ["Daya (W)", "Waktu (jam)"]
-    };
+    // Rangkaian campuran membutuhkan minimal 3 resistor.
+    if (type === "3" && Number(countElement.value) < 3) {
+        countElement.value = "3";
+    }
 
-    const ids = {
-        v: ["dcA", "dcB"],
-        i: ["dcA", "dcB"],
-        r: ["dcA", "dcB"],
-        p: ["dcA", "dcB"],
-        e: ["dcA", "dcB"]
-    };
+    const count = Number(countElement.value);
 
-    $("dcInputs").innerHTML = inputs[target].map((label, index) =>
-        field(label, ids[target][index])
-    ).join("");
+    let html = "";
+
+    html += `
+        <div class="field">
+            <label>Susunan rangkaian</label>
+            <p class="step">
+                ${type === "1"
+                    ? "Semua resistor disusun secara seri."
+                    : type === "2"
+                        ? "Semua resistor disusun secara paralel."
+                        : "R1 diseri dengan gabungan paralel R2 sampai resistor terakhir."}
+            </p>
+        </div>
+    `;
+
+    for (let n = 1; n <= count; n++) {
+        html += field(`Hambatan R${n} (Ohm)`, `dcR${n}`);
+    }
+
+    if (target === "i" || target === "p" || target === "e") {
+        html += field("Tegangan sumber (V)", "dcVoltage", "Masukkan tegangan");
+    }
+
+    if (target === "v") {
+        html += field("Arus total (A)", "dcCurrent", "Masukkan arus");
+    }
+
+    if (target === "e") {
+        html += field("Waktu (jam)", "dcTime", "Masukkan waktu");
+    }
+
+    $("dcInputs").innerHTML = html;
 }
-
-document.addEventListener("change", event => {
-    if (event.target.id === "dcTarget") dcFields();
-});
 
 function calculateDC() {
     const target = $("dcTarget").value;
-    const a = getValue("dcA");
-    const b = getValue("dcB");
+    const type = $("dcType").value;
+    const count = Number($("dcCount").value);
 
-    if (!validNonNegative(a, b)) {
-        return showError("Masukkan angka yang valid dan tidak negatif.");
+    const resistors = [];
+
+    for (let n = 1; n <= count; n++) {
+        resistors.push(getValue(`dcR${n}`));
     }
 
-    let result, name, unit, formula;
+    if (!validNonNegative(...resistors) ||
+        resistors.some(value => value <= 0)) {
+        return showError("Semua nilai resistor harus valid dan lebih besar dari nol.");
+    }
 
-    switch (target) {
-        case "v":
-            result = a * b;
-            name = "Tegangan";
-            unit = "V";
-            formula = "V = I × R";
-            break;
+    if (type === "3" && count < 3) {
+        return showError("Rangkaian campuran membutuhkan minimal 3 resistor.");
+    }
 
-        case "i":
-            if (b <= 0) return showError("Hambatan harus lebih dari nol.");
-            result = a / b;
-            name = "Arus";
-            unit = "A";
-            formula = "I = V / R";
-            break;
+    let rt = 0;
+    const lines = [];
 
-        case "r":
-            if (b <= 0) return showError("Arus harus lebih dari nol.");
-            result = a / b;
-            name = "Hambatan";
-            unit = "Ohm";
-            formula = "R = V / I";
-            break;
+    if (type === "1") {
+        rt = resistors.reduce((total, value) => total + value, 0);
 
-        case "p":
-            result = a * b;
-            name = "Daya";
+        lines.push("Jenis rangkaian: Seri");
+        lines.push("Rumus: Rt = R1 + R2 + ... + Rn");
+        lines.push(`Rt = ${resistors.map(format).join(" + ")}`);
+    }
+
+    else if (type === "2") {
+        const reciprocalSum = resistors.reduce(
+            (total, value) => total + (1 / value), 0
+        );
+
+        rt = 1 / reciprocalSum;
+
+        lines.push("Jenis rangkaian: Paralel");
+        lines.push("Rumus: 1/Rt = 1/R1 + 1/R2 + ... + 1/Rn");
+        lines.push(`Jumlah kebalikan resistor = ${format(reciprocalSum)}`);
+    }
+
+    else {
+        const parallelResistors = resistors.slice(1);
+
+        const reciprocalSum = parallelResistors.reduce(
+            (total, value) => total + (1 / value), 0
+        );
+
+        const parallelResult = 1 / reciprocalSum;
+        rt = resistors[0] + parallelResult;
+
+        lines.push("Jenis rangkaian: Campuran");
+        lines.push("R1 diseri dengan gabungan paralel resistor lainnya.");
+        lines.push(`Rp = ${format(parallelResult)} Ohm`);
+        lines.push(`Rt = R1 + Rp = ${format(resistors[0])} + ${format(parallelResult)}`);
+    }
+
+    lines.push(`Resistansi total = ${format(rt)} Ohm`);
+
+    let result;
+    let name;
+    let unit;
+
+    if (target === "rt") {
+        result = rt;
+        name = "Resistansi Total";
+        unit = "Ohm";
+        lines.push(`Hasil akhir: Rt = ${format(result)} Ohm`);
+    }
+
+    else if (target === "i") {
+        const voltage = getValue("dcVoltage");
+
+        if (!validNonNegative(voltage)) {
+            return showError("Tegangan sumber harus valid dan tidak negatif.");
+        }
+
+        result = voltage / rt;
+        name = "Arus Total";
+        unit = "A";
+
+        lines.push(`I = V / Rt`);
+        lines.push(`I = ${format(voltage)} / ${format(rt)}`);
+        lines.push(`Hasil akhir: I = ${format(result)} A`);
+    }
+
+    else if (target === "v") {
+        const current = getValue("dcCurrent");
+
+        if (!validNonNegative(current)) {
+            return showError("Arus total harus valid dan tidak negatif.");
+        }
+
+        result = current * rt;
+        name = "Tegangan Total";
+        unit = "V";
+
+        lines.push("V = I × Rt");
+        lines.push(`V = ${format(current)} × ${format(rt)}`);
+        lines.push(`Hasil akhir: V = ${format(result)} V`);
+    }
+
+    else if (target === "p" || target === "e") {
+        const voltage = getValue("dcVoltage");
+
+        if (!validNonNegative(voltage)) {
+            return showError("Tegangan sumber harus valid dan tidak negatif.");
+        }
+
+        const current = voltage / rt;
+        const power = voltage * current;
+
+        lines.push(`I = V / Rt = ${format(voltage)} / ${format(rt)} = ${format(current)} A`);
+        lines.push(`P = V × I = ${format(voltage)} × ${format(current)} = ${format(power)} W`);
+
+        if (target === "p") {
+            result = power;
+            name = "Daya Listrik";
             unit = "W";
-            formula = "P = V × I";
-            break;
+            lines.push(`Hasil akhir: P = ${format(result)} W`);
+        } else {
+            const time = getValue("dcTime");
 
-        case "e":
-            result = a * b;
-            name = "Energi";
+            if (!validNonNegative(time)) {
+                return showError("Waktu harus valid dan tidak negatif.");
+            }
+
+            result = power * time;
+            name = "Energi Listrik";
             unit = "Wh";
-            formula = "E = P × t";
-            break;
+
+            lines.push(`E = P × t = ${format(power)} × ${format(time)}`);
+            lines.push(`Hasil akhir: E = ${format(result)} Wh`);
+        }
     }
 
-    showResult("Hasil Kalkulator DC", [
-        `Rumus: ${formula}`,
-        `Substitusi: ${a} dan ${b}`,
-        `${name} = ${format(result)} ${unit}`
+    showResult(`Hasil ${name}`, [
+        ...lines,
+        `${name}: ${format(result)} ${unit}`
     ]);
 }
 
@@ -309,8 +482,7 @@ function calculateAC() {
     const f = getValue("acF");
     const pf = getValue("acPF");
 
-    if (!validNonNegative(v, i, f, pf) ||
-        f <= 0 || pf > 1) {
+    if (!validNonNegative(v, i, f, pf) || f <= 0 || pf > 1) {
         return showError("Periksa input. Frekuensi harus lebih dari nol dan PF berada pada 0–1.");
     }
 
@@ -330,81 +502,14 @@ function calculateAC() {
 }
 
 // ===================================
-// 3. KALKULATOR RANGKAIAN
-// ===================================
-
-function circuitFields() {
-    const type = $("circuitType").value;
-
-    let html = field("Hambatan R1 (Ohm)", "r1") +
-               field("Hambatan R2 (Ohm)", "r2");
-
-    if (type === "3") {
-        html += field("Hambatan R3 (Ohm)", "r3");
-    }
-
-    $("circuitInputs").innerHTML = html;
-}
-
-function calculateCircuit() {
-    const type = $("circuitType").value;
-    const r1 = getValue("r1");
-    const r2 = getValue("r2");
-
-    if (!validNonNegative(r1, r2) || r1 <= 0 || r2 <= 0) {
-        return showError("Semua hambatan harus lebih besar dari nol.");
-    }
-
-    let result, lines = [];
-
-    if (type === "1") {
-        result = r1 + r2;
-
-        lines.push("Rumus seri: Rt = R1 + R2");
-        lines.push(`Rt = ${r1} + ${r2}`);
-    }
-
-    else {
-        let paralel;
-
-        if (type === "2") {
-            paralel = 1 / (1 / r1 + 1 / r2);
-            result = paralel;
-
-            lines.push("Rumus paralel: 1/Rt = 1/R1 + 1/R2");
-            lines.push(`Rt = ${format(paralel)} Ohm`);
-        }
-
-        else {
-            const r3 = getValue("r3");
-
-            if (!validNonNegative(r3) || r3 <= 0) {
-                return showError("Hambatan R3 harus lebih besar dari nol.");
-            }
-
-            paralel = 1 / (1 / r2 + 1 / r3);
-            result = r1 + paralel;
-
-            lines.push("Rumus paralel: Rp = (R2 × R3) / (R2 + R3)");
-            lines.push(`Rp = ${format(paralel)} Ohm`);
-            lines.push("R1 diseri dengan hasil paralel R2 dan R3.");
-        }
-    }
-
-    lines.push(`Hambatan total = ${format(result)} Ohm`);
-
-    showResult("Hasil Kalkulator Rangkaian", lines);
-}
-
-// ===================================
-// 4. KALKULATOR 3 FASA
+// 3. KALKULATOR 3 FASA
 // ===================================
 
 function phaseFields() {
     const mode = $("phaseMode").value;
 
-    let html = field("Tegangan antar-fasa (V)", "phaseV") +
-               field("Power Factor (0-1)", "phasePF");
+    let html = field("Tegangan antar-fasa (V)", "phaseV");
+    html += field("Power Factor (0–1)", "phasePF");
 
     if (mode === "1") {
         html += field("Arus (A)", "phaseI");
@@ -421,10 +526,13 @@ function calculatePhase() {
     const pf = getValue("phasePF");
 
     if (!validNonNegative(v, pf) || v <= 0 || pf <= 0 || pf > 1) {
-        return showError("Tegangan harus positif dan PF harus berada pada rentang lebih dari 0 sampai 1.");
+        return showError("Tegangan harus positif dan PF harus lebih dari 0 sampai 1.");
     }
 
-    let arus, dayaAktif;
+    const sqrt3 = 1.73205080757;
+
+    let arus;
+    let dayaAktif;
 
     if (mode === "1") {
         arus = getValue("phaseI");
@@ -433,7 +541,7 @@ function calculatePhase() {
             return showError("Arus tidak valid.");
         }
 
-        dayaAktif = Math.sqrt(3) * v * arus * pf;
+        dayaAktif = sqrt3 * v * arus * pf;
     } else {
         dayaAktif = getValue("phaseP");
 
@@ -441,10 +549,10 @@ function calculatePhase() {
             return showError("Daya aktif tidak valid.");
         }
 
-        arus = dayaAktif / (Math.sqrt(3) * v * pf);
+        arus = dayaAktif / (sqrt3 * v * pf);
     }
 
-    const dayaSemu = Math.sqrt(3) * v * arus;
+    const dayaSemu = sqrt3 * v * arus;
     const dayaReaktif = dayaSemu * Math.sqrt(1 - pf ** 2);
 
     showResult("Hasil Kalkulator 3 Fasa", [
@@ -456,7 +564,7 @@ function calculatePhase() {
 }
 
 // ===================================
-// 5. SMART FORMULA
+// 4. SMART FORMULA
 // ===================================
 
 function calculateSmart() {
@@ -471,7 +579,10 @@ function calculateSmart() {
         return showError("Nilai input tidak boleh negatif.");
     }
 
-    let result, name, unit, formula;
+    let result;
+    let name;
+    let unit;
+    let formula;
 
     if (target === "1") {
         name = "Tegangan";
@@ -548,21 +659,33 @@ function calculateSmart() {
 }
 
 // ===================================
-// 6. STEP-BY-STEP
+// 5. STEP-BY-STEP
 // ===================================
 
 function stepsHTML() {
     if (langkahTerakhir.length === 0) {
-        return "Belum ada perhitungan. Lakukan perhitungan terlebih dahulu.";
+        return "Belum ada langkah perhitungan. Lakukan perhitungan terlebih dahulu.";
     }
 
-    return langkahTerakhir.map((step, index) =>
-        `<p class="step">${index + 1}. ${step}</p>`
-    ).join("");
+    const jumlahKarakter = langkahTerakhir[0].length;
+
+    return `
+        ${langkahTerakhir.map((step, index) =>
+            `<p class="step">${index + 1}. ${step}</p>`
+        ).join("")}
+
+        <hr>
+        <p class="step">
+            Jumlah langkah: ${langkahTerakhir.length}
+        </p>
+        <p class="step">
+            Jumlah karakter langkah pertama: ${jumlahKarakter}
+        </p>
+    `;
 }
 
 // ===================================
-// 7. UNIT CONVERTER
+// 6. UNIT CONVERTER
 // ===================================
 
 function convertUnit() {
